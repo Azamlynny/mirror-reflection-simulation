@@ -1,0 +1,34 @@
+public class LightSource{
+  float numBeams;
+  float xpos;
+  float ypos;
+  List<LightBeam> beams = new ArrayList<LightBeam>();
+
+    public LightSource(float numberOfBeams, float xposition, float yposition){
+      numBeams = numberOfBeams;
+      xpos = xposition;
+      ypos = yposition;
+      createBeams(numBeams);    
+    }
+    
+    void createBeams(float numberOfBeams){
+      numBeams = numberOfBeams;
+      beams.clear();
+      float angleBetween = (2 * PI) / numBeams;
+      for(int i = 0; i < numBeams; i++){
+         
+      }
+    }
+      
+    void drawLightSource(){
+       fill(255, 255, 0);
+       ellipse(xpos, ypos, 45, 45);
+       fill(255);
+    }
+    
+    void drawLightBeams(){
+      for(int i = 0; i < beams.size(); i++){
+        line(beams.get(i).startx, beams.get(i).starty, beams.get(i).endx, beams.get(i).endy); 
+      }
+    }
+}
