@@ -1,6 +1,6 @@
 import java.util.*;
 
-float xstep = 0.01;
+float xstep = 2;
 List<Float> graph = new ArrayList<Float>();
 int xmin = -200;
 int xmax = 200;
@@ -19,7 +19,7 @@ void draw(){
   background(255);
   source.drawLightSource();
   source.drawLightBeams();
-  //drawGraph();
+  drawGraph();
   moveSource();
 }
 
@@ -33,8 +33,10 @@ void solveGraph(){
 
 void drawGraph(){
   fill(0);
+  stroke(0);
   for(int i = 1; i < graph.size(); i++){
-    ellipse((float) ((i-1)*xstep) , (float) (graph.get(i-1)), graphWidth, graphWidth); 
+    //ellipse((float) ((i-1)*xstep) , (float) (graph.get(i-1)), graphWidth, graphWidth); 
+    line((i-1)*xstep, graph.get(i-1),(i)*xstep, graph.get(i));
   }
 }
 
