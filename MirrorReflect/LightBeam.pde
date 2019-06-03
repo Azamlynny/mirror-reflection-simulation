@@ -5,6 +5,7 @@ public class LightBeam{
   float starty;
   float endx;
   float endy;
+  float marchStep = 1;
  
   public LightBeam(float startPosX, float startPosY){
     startx = startPosX;
@@ -15,7 +16,7 @@ public class LightBeam{
    line(startx, starty, endx, endy); 
   }
   
-  public void findEndpoints(){
+  public void findEndpoint(){
     
   }
      

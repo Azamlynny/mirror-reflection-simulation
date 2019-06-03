@@ -3,6 +3,7 @@ public class LightSource{
   float xpos;
   float ypos;
   List<LightBeam> beams;
+  boolean moving = false;
 
     public LightSource(float numberOfBeams, float xposition, float yposition){
       numBeams = numberOfBeams;
@@ -23,8 +24,8 @@ public class LightSource{
          beams.get(i).startx = xpos;
          beams.get(i).starty = ypos;
          beams.get(i).b = beams.get(i).starty - (beams.get(i).m) * (beams.get(i).startx);
-         beams.get(i).endx = 1000 * cos(angleBetween * i);
-         beams.get(i).endy = 1000 * sin(angleBetween * i);
+         beams.get(i).endx = (2000) * cos(angleBetween * i) + beams.get(i).startx;
+         beams.get(i).endy = (2000) * sin(angleBetween * i) + beams.get(i).starty;
       }
     }
       
