@@ -19,13 +19,12 @@ public class LightSource{
       
       float angleBetween = (2 * PI) / numBeams;
       for(int i = 0; i < numBeams; i++){
-         beams.add(new LightBeam(xpos, ypos));
+         beams.add(new LightBeam(xpos, ypos, angleBetween * i));
          beams.get(i).m = tan(angleBetween * i);
          beams.get(i).startx = xpos;
          beams.get(i).starty = ypos;
          beams.get(i).b = beams.get(i).starty - (beams.get(i).m) * (beams.get(i).startx);
-         beams.get(i).endx = (2000) * cos(angleBetween * i) + beams.get(i).startx;
-         beams.get(i).endy = (2000) * sin(angleBetween * i) + beams.get(i).starty;
+         beams.get(i).findEndpoint(this, i);
       }
     }
       

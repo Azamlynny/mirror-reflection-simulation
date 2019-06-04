@@ -1,16 +1,14 @@
 import java.util.*;
 
 float xstep = 2;
-List<Float> graph = new ArrayList<Float>();
 int xmin = -200;
 int xmax = 200;
-int graphWidth = 1;
+Graph Graph = new Graph();
 LightSource source = new LightSource(10, 0, 300);
 
 void setup(){
   frameRate(60);
   size(1960,1080);
-  solveGraph();
 }
 
 void draw(){
@@ -19,25 +17,8 @@ void draw(){
   background(255);
   source.drawLightSource();
   source.drawLightBeams();
-  drawGraph();
+  Graph.drawGraph();
   moveSource();
-}
-
-void solveGraph(){
-  float x = xmin;
-  while(x < xmax){
-    graph.add((float) 50 * sin(x/20));
-    x += xstep;
-  }
-}
-
-void drawGraph(){
-  fill(0);
-  stroke(0);
-  for(int i = 1; i < graph.size(); i++){
-    //ellipse((float) ((i-1)*xstep) , (float) (graph.get(i-1)), graphWidth, graphWidth); 
-    line((i-1)*xstep, graph.get(i-1),(i)*xstep, graph.get(i));
-  }
 }
 
 void mousePressed(){
