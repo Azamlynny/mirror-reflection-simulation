@@ -25,22 +25,16 @@ public class LightBeam{
     float maxHeight = (2000) * sin(angle) + source.beams.get(i).starty;
     float x = startx;
     float y = starty;
-    for(int g = 0; g < Graph.graph.size(); g++){
-      x = startx;
-      y = starty;
-      while(Math.abs(x) < maxLength && intersect == false){
-        if(distance(x, y, (float) g, (float) Graph.graph.get(g)) < errorMargin){
+    
+    while(Math.abs(x) < 2000 && intersect == false){
+      x += marchStep * cos(angle);
+      y += marchStep * sin(angle);
+      for(int g = 0; g < Graph.graph.size(); g++){
+        if(distance(x, y, (float) g + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
           intersect = true;
-          x = g;
-          y = Graph.graph.get(g);
+          System.out.println(x + " " + y);
+          break;
         }
-        else{
-          x += 1 * marchStep;
-          y += m * marchStep;
-        }
-      }
-      if(intersect){
-        break;
       }
     }
     

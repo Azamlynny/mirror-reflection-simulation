@@ -1,8 +1,6 @@
 import java.util.*;
 
-float xstep = 2;
-int xmin = -200;
-int xmax = 200;
+
 Graph Graph = new Graph();
 LightSource source = new LightSource(10, 0, 300);
 
@@ -19,6 +17,8 @@ void draw(){
   source.drawLightBeams();
   Graph.drawGraph();
   moveSource();
+  fill(0);
+  rect(-5,-5,10,10);
 }
 
 void mousePressed(){
