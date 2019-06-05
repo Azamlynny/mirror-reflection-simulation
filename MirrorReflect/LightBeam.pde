@@ -7,7 +7,7 @@ public class LightBeam{
   float endy;
   float angle;
   float marchStep = 0.5;
-  float errorMargin = 1;
+  float errorMargin = 2.5;
  
   public LightBeam(float startPosX, float startPosY, float ang){
     startx = startPosX;
@@ -30,7 +30,7 @@ public class LightBeam{
       x += marchStep * cos(angle);
       y += marchStep * sin(angle);
       for(int g = 0; g < Graph.graph.size(); g++){
-        if(distance(x, y, (float) g + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
+        if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
           intersect = true;
           System.out.println(x + " " + y);
           break;
