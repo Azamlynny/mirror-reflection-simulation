@@ -1,8 +1,8 @@
 public class Graph{
 
   float xstep = 2;
-  int xmin = -200;
-  int xmax = 200;
+  int xmin = -400;
+  int xmax = 400;
 
   List<Float> graph = new ArrayList<Float>();
   int graphWidth = 1;
