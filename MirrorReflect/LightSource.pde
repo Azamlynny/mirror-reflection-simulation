@@ -23,7 +23,7 @@ public class LightSource{
          beams.add(new LightBeam(xpos, ypos, angleBetween * i));
          beams.get(i).m = tan(angleBetween * i);
          beams.get(i).b = beams.get(i).starty - (beams.get(i).m) * (beams.get(i).startx);
-         beams.get(i).findEndpoint(this, i);
+         beams.get(i).findEndpointAngular();
          globalBeams.add(beams.get(i));
       }
     }
@@ -34,20 +34,16 @@ public class LightSource{
        fill(255);
     }
     
-    void drawLightBeams(){
-      
-    }
-    
     //void createReflectBeam(LightBeam beam){
-    //  float m1 = Graph.findDerivative(beam.endx);
-    //  m1 = -(1/m1);
-    //  float m2 = beam.m;
-    //  if(m1 < 0){
-    //    m2 = m1; 
-    //    m1 = beam.m;
-    //  }
-    //  float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
-    //  float b3 = beam.endy - m3 * beam.endx;
+      //float m1 = Graph.findDerivative(beam.endx);
+      //m1 = -(1/m1);
+      //float m2 = beam.m;
+      //if(m1 < 0){
+      //  m2 = m1; 
+      //  m1 = beam.m;
+      //}
+      //float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
+      //float b3 = beam.endy - m3 * beam.endx;
     //  float angle = atan(m3);
     //  if(m3 < 0){
     //   m3 = m3 * -1; 

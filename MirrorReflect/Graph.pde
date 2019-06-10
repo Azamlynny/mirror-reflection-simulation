@@ -14,7 +14,8 @@ public class Graph{
   void solveGraph(){
     float x = xmin;
     while(x < xmax){
-      graph.add((float) 50 * sin(x/20));
+      //graph.add((float) 50 * sin(x/20));
+      graph.add((float) (1/100 * Math.pow(x, 2)));
       x += xstep;
     }
   }

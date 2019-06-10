@@ -14,12 +14,11 @@ void draw(){
   translate(width/2, -height/2);
   background(255);
   source.drawLightSource();
-  source.drawLightBeams();
+  drawLightBeams();
   Graph.drawGraph();
   moveSource();
   fill(0);
   rect(-5,-5,10,10); // origin
-  drawLightBeams();
 }
 
 void mousePressed(){
