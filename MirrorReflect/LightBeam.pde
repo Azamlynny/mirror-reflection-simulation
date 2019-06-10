@@ -1,6 +1,6 @@
 public class LightBeam{
   float m;
-  float b;
+  float b; 
   float startx;
   float starty;
   float endx;
@@ -8,6 +8,8 @@ public class LightBeam{
   float angle;
   float marchStep = 0.5;
   float errorMargin = 3;
+  boolean reflected = false;
+  boolean bounced = false;
  
   public LightBeam(float startPosX, float startPosY, float ang){
     startx = startPosX;
@@ -32,7 +34,9 @@ public class LightBeam{
       for(int g = 0; g < Graph.graph.size(); g++){
         if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
           intersect = true;
-          System.out.println(x + " " + y);
+          reflected = true; 
+          x = g * Graph.xstep + Graph.xmin;
+          y = Graph.graph.get(g);
           break;
         }
       }

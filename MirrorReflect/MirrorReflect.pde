@@ -1,8 +1,7 @@
 import java.util.*;
 
-
 Graph Graph = new Graph();
-LightSource source = new LightSource(10, 0, 300);
+LightSource source = new LightSource(1, 0, 300);
 
 void setup(){
   frameRate(60);
@@ -56,7 +55,7 @@ void mouseWheel(MouseEvent event) {
     source.numBeams--;
     source.createBeams(source.numBeams);
   }
-  else if (e==-1){
+  else if (e == -1){
     source.numBeams++; 
     source.createBeams(source.numBeams);
   }

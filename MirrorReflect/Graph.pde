@@ -27,5 +27,8 @@ public class Graph{
       line((i-1)*xstep + xmin, Graph.graph.get(i-1),(i)*xstep + xmin, Graph.graph.get(i));
     }
   }
-
+  
+  float findDerivative(float x){
+     return 5/2 * cos(x/20);
+  }
 }
