@@ -16,19 +16,15 @@ public class LightSource{
     void createBeams(float numberOfBeams){
       numBeams = numberOfBeams;
       beams.clear();
+      globalBeams.clear();
       float angleBetween = (2 * PI) / numBeams;
    
       for(int i = 0; i < numBeams; i++){
          beams.add(new LightBeam(xpos, ypos, angleBetween * i));
          beams.get(i).m = tan(angleBetween * i);
-         beams.get(i).startx = xpos;
-         beams.get(i).starty = ypos;
          beams.get(i).b = beams.get(i).starty - (beams.get(i).m) * (beams.get(i).startx);
          beams.get(i).findEndpoint(this, i);
-         if(beams.get(i).reflected){
-           createReflectBeam(beams.get(i));
-           numBeams++;
-         }
+         globalBeams.add(beams.get(i));
       }
     }
     
@@ -39,39 +35,27 @@ public class LightSource{
     }
     
     void drawLightBeams(){
-      strokeWeight(3);
-      stroke(255,255,0);
-      for(int i = 0; i < beams.size(); i++){
-        if(beams.get(i).bounced){
-          stroke(0,0,255); 
-        }
-        else{
-          stroke(255,255,0);
-        }
-        line(beams.get(i).startx, beams.get(i).starty, beams.get(i).endx, beams.get(i).endy); 
-      }
-      stroke(0);
-      strokeWeight(1);
+      
     }
     
-    void createReflectBeam(LightBeam beam){
-      float m1 = Graph.findDerivative(beam.endx);
-      m1 = -(1/m1);
-      float m2 = beam.m;
-      if(m1 < 0){
-        m2 = m1; 
-        m1 = beam.m;
-      }
-      float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
-      float b3 = beam.endy - m3 * beam.endx;
-      float angle = atan(m3);
-      if(m3 < 0){
-       m3 = m3 * -1; 
-      }
-      beams.add(new LightBeam(beam.endx, beam.endy, angle));
-      beams.get(beams.size() - 1).b = b3;
-      beams.get(beams.size() - 1).endx = 2000;
-      beams.get(beams.size() - 1).endy = 2000 * m3 + b3;
-      beams.get(beams.size() - 1).bounced = true;
-    }
+    //void createReflectBeam(LightBeam beam){
+    //  float m1 = Graph.findDerivative(beam.endx);
+    //  m1 = -(1/m1);
+    //  float m2 = beam.m;
+    //  if(m1 < 0){
+    //    m2 = m1; 
+    //    m1 = beam.m;
+    //  }
+    //  float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
+    //  float b3 = beam.endy - m3 * beam.endx;
+    //  float angle = atan(m3);
+    //  if(m3 < 0){
+    //   m3 = m3 * -1; 
+    //  }
+    //  beams.add(new LightBeam(beam.endx, beam.endy, angle));
+    //  beams.get(beams.size() - 1).b = b3;
+    //  beams.get(beams.size() - 1).endx = 2000;
+    //  beams.get(beams.size() - 1).endy = 2000 * m3 + b3;
+    //  beams.get(beams.size() - 1).bounced = true;
+    //}
 }

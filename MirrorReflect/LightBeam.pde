@@ -18,6 +18,12 @@ public class LightBeam{
   }
   
   public void drawBeam(){
+   if(bounced){
+     stroke(0,0,255); 
+   }
+   else{
+     stroke(255,255,0);
+   }
    line(startx, starty, endx, endy); 
   }
   

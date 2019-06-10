@@ -1,8 +1,9 @@
 import java.util.*;
 
 Graph Graph = new Graph();
-LightSource source = new LightSource(1, 0, 300);
-
+List<LightBeam> globalBeams = new ArrayList<LightBeam>();
+LightSource source = new LightSource(10, 0, 300);
+  
 void setup(){
   frameRate(60);
   size(1960,1080);
@@ -17,7 +18,8 @@ void draw(){
   Graph.drawGraph();
   moveSource();
   fill(0);
-  rect(-5,-5,10,10);
+  rect(-5,-5,10,10); // origin
+  drawLightBeams();
 }
 
 void mousePressed(){
@@ -59,4 +61,14 @@ void mouseWheel(MouseEvent event) {
     source.numBeams++; 
     source.createBeams(source.numBeams);
   }
+}
+
+void drawLightBeams(){
+  strokeWeight(3);
+  stroke(255,255,0);
+  for(int i = 0; i < globalBeams.size(); i++){
+    globalBeams.get(i).drawBeam(); 
+  }
+  stroke(0);
+  strokeWeight(1); 
 }
