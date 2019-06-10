@@ -1,6 +1,6 @@
 public class Graph{
 
-  float xstep = 2;
+  float xstep = 1;
   int xmin = -400;
   int xmax = 400;
 
@@ -15,7 +15,7 @@ public class Graph{
     float x = xmin;
     while(x < xmax){
       //graph.add((float) 50 * sin(x/20));
-      graph.add((float) (1/100 * Math.pow(x, 2)));
+      graph.add((float) 0.02 * (float)  Math.pow(x, 2));
       x += xstep;
     }
   }

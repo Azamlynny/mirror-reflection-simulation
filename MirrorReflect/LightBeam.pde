@@ -72,8 +72,8 @@ public class LightBeam{
     boolean intersect = false;
     float maxLength = (2000) * m + startx;
     float maxHeight = (2000) * m + starty;
-    float x = startx;
-    float y = starty;
+    float x = startx + errorMargin * 1.5;
+    float y = starty + m * errorMargin * 1.5;
     
     while(Math.abs(x) < 2000 && intersect == false){
       x += marchStep * 1;
@@ -112,6 +112,7 @@ public class LightBeam{
       float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
       float b3 = this.endy - m3 * this.endx;
       globalBeams.add(new LightBeam(this.endx, this.endy, m3, b3));
+      globalBeams.get(globalBeams.size() - 1).bounced = true;
       globalBeams.get(globalBeams.size() - 1).findEndpointLinear(recursion++);
     }  
   }
