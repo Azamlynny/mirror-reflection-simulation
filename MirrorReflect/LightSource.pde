@@ -33,25 +33,5 @@ public class LightSource{
        ellipse(xpos, ypos, 45, 45);
        fill(255);
     }
-    
-    //void createReflectBeam(LightBeam beam){
-      //float m1 = Graph.findDerivative(beam.endx);
-      //m1 = -(1/m1);
-      //float m2 = beam.m;
-      //if(m1 < 0){
-      //  m2 = m1; 
-      //  m1 = beam.m;
-      //}
-      //float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
-      //float b3 = beam.endy - m3 * beam.endx;
-    //  float angle = atan(m3);
-    //  if(m3 < 0){
-    //   m3 = m3 * -1; 
-    //  }
-    //  beams.add(new LightBeam(beam.endx, beam.endy, angle));
-    //  beams.get(beams.size() - 1).b = b3;
-    //  beams.get(beams.size() - 1).endx = 2000;
-    //  beams.get(beams.size() - 1).endy = 2000 * m3 + b3;
-    //  beams.get(beams.size() - 1).bounced = true;
-    //}
+   
 }

@@ -8,6 +8,7 @@ public class LightBeam{
   float angle;
   float marchStep = 0.5;
   float errorMargin = 3;
+  float ignoreErrorMargin = 3;
   boolean reflected = false;
   boolean bounced = false;
  
@@ -72,8 +73,8 @@ public class LightBeam{
     boolean intersect = false;
     float maxLength = (2000) * m + startx;
     float maxHeight = (2000) * m + starty;
-    float x = startx + errorMargin * 1.5;
-    float y = starty + m * errorMargin * 1.5;
+    float x = startx + errorMargin * ignoreErrorMargin;
+    float y = starty + m * errorMargin * ignoreErrorMargin;
     
     while(Math.abs(x) < 2000 && intersect == false){
       x += marchStep * 1;

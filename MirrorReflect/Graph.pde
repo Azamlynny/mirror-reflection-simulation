@@ -15,9 +15,13 @@ public class Graph{
     float x = xmin;
     while(x < xmax){
       //graph.add((float) 50 * sin(x/20));
-      graph.add((float) 0.02 * (float)  Math.pow(x, 2));
+      graph.add(fx(x));
       x += xstep;
     }
+  }
+  
+  float fx(float x){
+     return (float) 0.02 * (float)  Math.pow(x, 2);
   }
   
   void drawGraph(){
