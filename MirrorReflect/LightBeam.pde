@@ -11,6 +11,7 @@ public class LightBeam{
   float ignoreErrorMargin = 3;
   boolean reflected = false;
   boolean bounced = false;
+  int graphIndex;
  
   public LightBeam(float startPosX, float startPosY, float ang){
     startx = startPosX;
@@ -53,6 +54,7 @@ public class LightBeam{
           reflected = true; 
           x = g * Graph.xstep + Graph.xmin;
           y = Graph.graph.get(g);
+          graphIndex = g;
           break;
         }
       }
@@ -69,16 +71,18 @@ public class LightBeam{
     }  
   }
   
-  public void findEndpointLinear(int recursion){
+  public void findEndpointLinear(int recursion, LightBeam beam){
     boolean intersect = false;
     float maxLength = (2000) * m + startx;
     float maxHeight = (2000) * m + starty;
     float x = startx + errorMargin * ignoreErrorMargin;
     float y = starty + m * errorMargin * ignoreErrorMargin;
-    
+
     while(Math.abs(x) < 2000 && intersect == false){
-      x += marchStep * 1;
-      y += marchStep * m;
+     
+       x += marchStep * 1;
+       y += marchStep * m;
+     
       for(int g = 0; g < Graph.graph.size(); g++){
         if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
           intersect = true;
@@ -114,7 +118,7 @@ public class LightBeam{
       float b3 = this.endy - m3 * this.endx;
       globalBeams.add(new LightBeam(this.endx, this.endy, m3, b3));
       globalBeams.get(globalBeams.size() - 1).bounced = true;
-      globalBeams.get(globalBeams.size() - 1).findEndpointLinear(recursion++);
+      globalBeams.get(globalBeams.size() - 1).findEndpointLinear(recursion++, this);
     }  
   }
   

@@ -2,8 +2,8 @@ import java.util.*;
 
 Graph Graph = new Graph();
 List<LightBeam> globalBeams = new ArrayList<LightBeam>();
-//LightSource source = new LightSource(10, 0, 300);
-LightSource source = new ParallelLightSource(10,0,300);
+LightSource source = new LightSource(11, 0, 300);
+//LightSource source = new ParallelLightSource(10,0,300);
 void setup(){
   frameRate(60);
   size(1960,1080);

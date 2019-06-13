@@ -34,6 +34,7 @@ public class Graph{
   }
   
   float findDerivative(float x){
-     return 5/2 * cos(x/20);
+     //return 5/2 * cos(x/20);
+     return(0.04 * x);
   }
 }
