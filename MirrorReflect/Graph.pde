@@ -22,6 +22,7 @@ public class Graph{
   
   float fx(float x){
      return (float) 0.02 * (float)  Math.pow(x, 2);
+     //return (float) 50 * sin(x/20);
   }
   
   void drawGraph(){
@@ -34,7 +35,7 @@ public class Graph{
   }
   
   float findDerivative(float x){
-     //return 5/2 * cos(x/20);
+     //return (5/2 * cos(x/20));
      return(0.04 * x);
   }
 }
