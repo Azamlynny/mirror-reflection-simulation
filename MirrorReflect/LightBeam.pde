@@ -77,11 +77,38 @@ public class LightBeam{
     float maxHeight = (2000) * m + starty;
     float x = startx + errorMargin * ignoreErrorMargin;
     float y = starty + m * errorMargin * ignoreErrorMargin;
-
+    float backTrackX = beam.endx -= marchStep * cos(beam.angle);
+    float backTrackY = beam.endy -= marchStep * sin(beam.angle);
+    float graphX = Graph.fx(backTrackX);
+    String direction = "";
+    if(backTrackY < graphX){
+      direction = "below"; 
+    }
+    else if(backTrackY > graphX){
+      direction = "above"; 
+    }
+    String rule = "";
+    if(direction.equals("below") && starty + marchStep * m < Graph.fx(startx + marchStep * 1)){
+      rule = "add";
+    }
+    else if(direction.equals("below")){
+      rule = "subtract"; 
+    }
+    if(direction.equals("above") && starty - marchStep * m < Graph.fx(startx - marchStep * 1)){
+      rule = "add";
+    }
+    else if(direction.equals("above")){
+      rule = "subtract"; 
+    }
     while(Math.abs(x) < 2000 && intersect == false){
-     
+      if(rule.equals("add")){
        x += marchStep * 1;
        y += marchStep * m;
+      }
+      if(rule.equals("subtract")){
+        x -= marchStep * 1;
+        y += marchStep * m;
+      }
      
       for(int g = 0; g < Graph.graph.size(); g++){
         if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
@@ -93,7 +120,7 @@ public class LightBeam{
         }
       }
     } 
-     
+    
     if(intersect == true){
       endx = x;
       endy = y;
@@ -103,6 +130,11 @@ public class LightBeam{
       endx = maxLength;
       endy = maxHeight;
     }    
+    
+    startx = -1000;
+    starty = -1000 * m + b;
+    endx = 1000;
+    endy = 1000 * m + b;
   }
   
   public void createReflection(int recursion){

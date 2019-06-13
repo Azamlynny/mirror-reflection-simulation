@@ -2,7 +2,7 @@ import java.util.*;
 
 Graph Graph = new Graph();
 List<LightBeam> globalBeams = new ArrayList<LightBeam>();
-LightSource source = new LightSource(11, 0, 300);
+LightSource source = new LightSource(10, 0, 300);
 //LightSource source = new ParallelLightSource(10,0,300);
 void setup(){
   frameRate(60);
@@ -19,6 +19,9 @@ void draw(){
   moveSource();
   fill(0);
   rect(-5,-5,10,10); // origin
+  //for(int i =0 ; i < globalBeams.size(); i++){
+  //  text(globalBeams.get(i).angle, globalBeams.get(i).startx, globalBeams.get(i).starty); 
+  //}
 }
 
 void mousePressed(){
