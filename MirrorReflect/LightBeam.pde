@@ -100,26 +100,6 @@ public class LightBeam{
     else if(direction.equals("above")){
       rule = "subtract"; 
     }
-    while(Math.abs(x) < 2000 && intersect == false){
-      if(rule.equals("add")){
-       x += marchStep * 1;
-       y += marchStep * m;
-      }
-      if(rule.equals("subtract")){
-        x -= marchStep * 1;
-        y += marchStep * m;
-      }
-     
-      for(int g = 0; g < Graph.graph.size(); g++){
-        if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin){
-          intersect = true;
-          reflected = true; 
-          x = g * Graph.xstep + Graph.xmin;
-          y = Graph.graph.get(g);
-          break;
-        }
-      }
-    } 
     
     if(intersect == true){
       endx = x;
@@ -130,11 +110,15 @@ public class LightBeam{
       endx = maxLength;
       endy = maxHeight;
     }    
-    
-    startx = -1000;
-    starty = -1000 * m + b;
-    endx = 1000;
-    endy = 1000 * m + b;
+
+    if(rule.equals("add")){
+       endx = 1000;
+       endy = 1000 * m + b;
+    }
+    else if(rule.equals("subtract")){
+      endx = -1000;
+      endy = -1000 * m + b;
+    }
   }
   
   public void createReflection(int recursion){
@@ -142,10 +126,7 @@ public class LightBeam{
       float m1 = Graph.findDerivative(this.endx);
       m1 = -(1/m1);
       float m2 = this.m;
-      if(m1 < 0){
-        m2 = m1; 
-        m1 = this.m;
-      }
+
       float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
       float b3 = this.endy - m3 * this.endx;
       globalBeams.add(new LightBeam(this.endx, this.endy, m3, b3));
