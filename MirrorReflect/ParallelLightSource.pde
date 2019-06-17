@@ -10,9 +10,9 @@ class ParallelLightSource extends LightSource{
     numBeams = numberOfBeams;
     beams.clear();
     globalBeams.clear();
-    float angle = 3 * PI / 2;
+    float angle = 3 * PI / 2 + 0.01;
     for(int i = 0; i < numberOfBeams; i++){
-      beams.add(new LightBeam(xpos + i * 15 , ypos, angle));
+      beams.add(new LightBeam(xpos + i * 31 , ypos, angle));
       beams.get(i).m = tan(angle);
       beams.get(i).b = beams.get(i).starty - (beams.get(i).m) * (beams.get(i).startx);
       beams.get(i).findEndpointAngular();

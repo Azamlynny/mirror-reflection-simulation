@@ -12,7 +12,20 @@ public class LightBeam{
   boolean reflected = false;
   boolean bounced = false;
   int graphIndex;
- 
+  float leniency = 15;
+  int recursions = 2;
+  boolean first = false;
+  String marchRule = "add";
+  float marchXStep = 0;
+  float marchYStep = 0;
+  float lastX;
+  float lastY;
+  float n1m;
+  float n1b;
+  float n2m;
+  float n2b;
+  boolean doRecursion = false; 
+  
   public LightBeam(float startPosX, float startPosY, float ang){
     startx = startPosX;
     starty = startPosY;
@@ -39,6 +52,7 @@ public class LightBeam{
   }
   
   public void findEndpointAngular(){
+    first = true;
     boolean intersect = false;
     float maxLength = (2000) * cos(angle) + startx;
     float maxHeight = (2000) * sin(angle) + starty;
@@ -57,6 +71,9 @@ public class LightBeam{
           graphIndex = g;
           break;
         }
+      }
+      if(Math.abs(x) > 1000 || Math.abs(y) > 1000){
+        break; 
       }
     }
     
@@ -77,8 +94,12 @@ public class LightBeam{
     float maxHeight = (2000) * m + starty;
     float x = startx + errorMargin * ignoreErrorMargin;
     float y = starty + m * errorMargin * ignoreErrorMargin;
-    float backTrackX = beam.endx -= marchStep * cos(beam.angle);
-    float backTrackY = beam.endy -= marchStep * sin(beam.angle);
+    float backTrackX = 0;
+    float backTrackY = 0;
+      
+    backTrackX = beam.endx - marchStep * cos(beam.angle);
+    backTrackY = beam.endy - marchStep * sin(beam.angle);
+    
     float graphX = Graph.fx(backTrackX);
     String direction = "";
     if(backTrackY < graphX){
@@ -88,7 +109,7 @@ public class LightBeam{
       direction = "above"; 
     }
     String rule = "";
-    if(direction.equals("below") && starty + marchStep * m < Graph.fx(startx + marchStep * 1)){
+    if(direction.equals("below") && starty + marchXStep * m < Graph.fx(startx + marchStep * 1)){
       rule = "add";
     }
     else if(direction.equals("below")){
@@ -100,6 +121,7 @@ public class LightBeam{
     else if(direction.equals("above")){
       rule = "subtract"; 
     }
+    marchRule = rule;
     float maxX;
     float maxY;
     if(rule.equals("add")){
@@ -118,18 +140,21 @@ public class LightBeam{
     float steps = (Math.abs(maxX - startx));
     float xstep = (maxX - startx)/steps;
     float ystep = (maxY - starty)/steps;
-    
-     x += 10 * xstep * errorMargin;
-     y += 10 * ystep * errorMargin;
+    marchXStep = xstep;
+    marchYStep = ystep;
+     x += leniency * xstep * errorMargin;
+     y += leniency * ystep * errorMargin;
       
     //logic to check for intersections
     while(intersect == false){
-      x += xstep * errorMargin;
-      y += ystep * errorMargin;
+      x += xstep;
+      y += ystep;
       for(int g = 0; g < Graph.graph.size(); g++){
         if(distance(x, y, (float) g * Graph.xstep + Graph.xmin, (float) Graph.graph.get(g)) < errorMargin + 3){
           intersect = true;
           reflected = true; 
+          lastX = x - marchStep;
+          lastY = y - ystep * marchStep;
           x = g * Graph.xstep + Graph.xmin;
           y = Graph.graph.get(g);
           graphIndex = g;
@@ -139,32 +164,39 @@ public class LightBeam{
       if(distance(x,y,maxX,maxY) < 3){
         break; 
       }
+      if(Math.abs(x) > 1000 || Math.abs(y) > 1000){
+        break; 
+      }
     }
     
     if(intersect == true){
       endx = x;
       endy = y;
-      //createReflection(recursion++);
+      if(doRecursion){
+        createReflection(recursion++);
+      }  
     }
     else if(intersect == false){
       endx = maxX;
       endy = maxY;
-    }    
-
-    
+    }
   }
   
   public void createReflection(int recursion){
-    if(recursion < 3){
+    if(recursion < recursions){
       float m1 = Graph.findDerivative(this.endx);
+      n1b = this.endy - m1 * this.endx;
+      n1m = m1;
       m1 = -(1/m1);
+      n2m = m1;
+      n2b = this.endy - m1 * this.endx;;
       float m2 = this.m;
-
       float m3 = (float) ((Math.pow(m1,2) * m2 + 2*m1 - m2) / (1 + 2*m1*m2 - Math.pow(m1,2)));
       float b3 = this.endy - m3 * this.endx;
+      
       globalBeams.add(new LightBeam(this.endx, this.endy, m3, b3));
       globalBeams.get(globalBeams.size() - 1).bounced = true;
-      globalBeams.get(globalBeams.size() - 1).findEndpointLinear(recursion++, this);
+      globalBeams.get(globalBeams.size() - 1).findEndpointLinear(recursion, this);
     }  
   }
   
